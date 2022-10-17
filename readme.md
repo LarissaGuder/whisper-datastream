@@ -5,3 +5,7 @@
 `pip install setuptools-rust`
 
 `choco install ffmpeg`
+
+### Req for spark
+
+`pip install pyspark`
