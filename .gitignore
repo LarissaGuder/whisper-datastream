@@ -1,0 +1,7 @@
+pyspark_venv/
+pyspark_env/
+__pycache__
+spark-3.3.0-bin-hadoop3.tgz
+pyspark_conda_env.tar.gz
+pyspark_env.tar.gz
+pyspark_venv.tar.gz
