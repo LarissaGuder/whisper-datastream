@@ -54,10 +54,11 @@ N_SAMPLES = CHUNK_LENGTH * SAMPLE_RATE  # 480000: number of samples in a chunk
 N_FRAMES = exact_div(N_SAMPLES, HOP_LENGTH)
 
 filename = librosa.ex('libri2')
-sr = 16000
+sr = librosa.get_samplerate(filename)
 
 # librosa streaming
-stream = librosa.stream(filename, block_length=N_FRAMES,
+stream = librosa.stream(filename,
+                        block_length=N_FRAMES,
                         frame_length=N_FFT,
                         hop_length=HOP_LENGTH,
                         mono=True,
@@ -66,15 +67,18 @@ stream = librosa.stream(filename, block_length=N_FRAMES,
 
 
 for y_block in stream:
+    # SR_ = librosa.get_samplerate(y_block)
+    resem = librosa.resample(
+        y_block, orig_sr=sr, target_sr=SAMPLE_RATE, fix=True)
     D_block = librosa.stft(y_block, center=False)
     mel = whisper.log_mel_spectrogram(y_block).to(model.device)
     # detect the spoken language
-    _, probs = model.detect_language(mel)
-    print(f"Detected language: {max(probs, key=probs.get)}")
+    # _, probs = model.detect_language(mel)
+    # print(f"Detected language: {max(probs, key=probs.get)}")
 
     # decode the audio
     #  to define the language >> language = 'portuguese'
-    options = whisper.DecodingOptions(fp16 = False, language = 'portuguese')
+    options = whisper.DecodingOptions(fp16=False, language='portuguese')
     result = whisper.decode(model, mel, options)
 
     # print the recognized text
