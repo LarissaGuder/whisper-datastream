@@ -1,25 +1,12 @@
-import pandas as pd
 import json
-from pydub import AudioSegment
-from pydub.silence import split_on_silence
-import pydub
-from pydub.utils import make_chunks
 import numpy as np
-import time
-import whisper
 import os
 import ffmpeg
 import json
-import sys
-# model = whisper.load_model("base")
 
 dir_path = r'../audio/'
 
-# list to store files
-res = []
 SAMPLE_RATE = 16000
-
-
 def load_audio(file: str, sr: int = SAMPLE_RATE):
     """
     Open an audio file and read as mono waveform, resampling as necessary
@@ -49,13 +36,9 @@ def load_audio(file: str, sr: int = SAMPLE_RATE):
 
     return np.frombuffer(out, np.int16).flatten().astype(np.float32) / 32768.0
 
-
 # Iterate directory
 for path in os.listdir(dir_path):
     audio = load_audio(dir_path+path)
-    # print(audio.shape)
-    # sys.exit(0)
-    listao = ""
-    path_csv = "../files/i" + path + ".json"
+    path_csv = "../files/" + path + ".json"
     with open(path_csv, 'w') as f:
         json.dump({'audio': audio.tolist()}, f, ensure_ascii=False)
