@@ -2,11 +2,9 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import explode
 from pyspark.sql.functions import split
 from pyspark.sql.types import *
-from pyspark.ml import Pipeline
 import whisper
 model = whisper.load_model("base")
 import numpy as np
-import sys
 
 spark = SparkSession \
     .builder \
