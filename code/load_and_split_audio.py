@@ -13,7 +13,7 @@ model = whisper.load_model("base")
 
 # sound = AudioSegment.from_wav("./audio2.wav")
 sound = AudioSegment.from_mp3(
-    "../Watch Barack Obama’s Full Speech At The 2020 DNC _ NBC News.mp3")
+    "../input/BarackObama-FullSpeechText.mp3")
 
 # Set to mono
 sound = sound.set_channels(1)
@@ -26,7 +26,6 @@ chunks = split_on_silence(
     # anything under -16 dBFS is considered silence
     silence_thresh=-40,
 )
-
 
 target_length = 30 * 1000
 
