@@ -1,10 +1,5 @@
-import pandas as pd
-import json
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
-import pydub
-from pydub.utils import make_chunks
-import numpy as np
 import time
 import whisper
 start_time = time.time()
