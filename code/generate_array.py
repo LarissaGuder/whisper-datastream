@@ -10,7 +10,7 @@ import whisper
 import os
 import ffmpeg
 import json
-
+import sys
 # model = whisper.load_model("base")
 
 dir_path = r'../audio/'
@@ -53,23 +53,9 @@ def load_audio(file: str, sr: int = SAMPLE_RATE):
 # Iterate directory
 for path in os.listdir(dir_path):
     audio = load_audio(dir_path+path)
+    # print(audio.shape)
+    # sys.exit(0)
     listao = ""
-    # for i in audio.tolist():
-    #     listao = listao + str(i) + ","
-    
     path_csv = "../files/i" + path + ".json"
-    # print(path_csv)
-    # f = open(path_csv,'w')
-    # f.write(listao) #Give your csv text here.
-    # ## Python will convert \n to os.linesep
-    # f.close()
-
     with open(path_csv, 'w') as f:
-        # temp = 'audio'
         json.dump({'audio': audio.tolist()}, f, ensure_ascii=False)
-    # df = pd.DataFrame(listao)
-    # # Save this shit to file
-    # df.to_csv(path_csv, index=False)
-
-    # np.savetxt(path_csv, audio, delimiter=",")
-    #    audio = whisper.pad_or_trim(audio)

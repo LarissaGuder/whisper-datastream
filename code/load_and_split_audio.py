@@ -13,7 +13,7 @@ model = whisper.load_model("base")
 
 # sound = AudioSegment.from_wav("./audio2.wav")
 sound = AudioSegment.from_mp3(
-    "../Gusttavo Lima é o SUS do sertanejo _ Choque de Cultura - Ambiente de Música #CORTE.mp3")
+    "../Watch Barack Obama’s Full Speech At The 2020 DNC _ NBC News.mp3")
 
 # Set to mono
 sound = sound.set_channels(1)
@@ -28,7 +28,7 @@ chunks = split_on_silence(
 )
 
 
-target_length = 10 * 1000
+target_length = 30 * 1000
 
 output_chunks = [chunks[0]]
 for chunk in chunks[1:]:
