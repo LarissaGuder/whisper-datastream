@@ -5,10 +5,11 @@ from pyspark.sql.types import *
 import whisper
 model = whisper.load_model("base")
 import numpy as np
+from bert_NER import NER
 
 spark = SparkSession \
     .builder \
-    .appName("StructuredNetworkWordCount") \
+    .appName("WhisperStreaming") \
     .getOrCreate()
 # StructField("languagesAtWork",ArrayType(StringType()),True),
 schema = StructType().add("audio", ArrayType(FloatType(), False))
@@ -47,6 +48,8 @@ def transcribe(df, epochId):
     options = whisper.DecodingOptions(fp16=False)
     result = whisper.decode(model, mel, options)
     print(result.text)
+    # ner_results = nlp(result.text)
+    print(NER(result.text))
     # print the recognized text
     return (result.text)
 
