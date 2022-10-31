@@ -29,6 +29,10 @@ df.printSchema()
 
 print(f"Streaming DataFrame: {df.isStreaming}")
 
+
+sentence_dictionary = {}
+
+
 def transcribe(df, epochId):
     audio = df.collect()[0][0]
 
@@ -41,16 +45,25 @@ def transcribe(df, epochId):
 
     # detect the spoken language
     _, probs = model.detect_language(mel)
-    print(f"Language: {max(probs, key=probs.get)}")
+    # print(f"Language: {max(probs, key=probs.get)}")
 
     # decode the audio
     #  to define the language >> language = 'portuguese'
     options = whisper.DecodingOptions(fp16=False)
     result = whisper.decode(model, mel, options)
-    print(result.text)
     # ner_results = nlp(result.text)
-    print(NER(result.text))
+    ner = NER(result.text)
+
+    for item in ner:
+        if item['entity'] == 'I-PER':
+            if item['word'] in sentence_dictionary:
+                sentence_dictionary[item['word']] += 1
+            else:
+                sentence_dictionary[item['word']] = 1
     # print the recognized text
+    print(f"Lang: {max(probs, key=probs.get)} >>>> ")
+    print(f" | {result.text} | ")
+    print(f" | PERSON cited >>  {sentence_dictionary} | ")
     return (result.text)
 
 df.writeStream.foreachBatch(transcribe).start().awaitTermination()
