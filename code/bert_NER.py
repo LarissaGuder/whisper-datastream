@@ -1,15 +1,25 @@
-from transformers import AutoTokenizer, AutoModelForTokenClassification
-from transformers import pipeline
+# from transformers import AutoTokenizer, AutoModelForTokenClassification
+# from transformers import pipeline
 
-tokenizer = AutoTokenizer.from_pretrained("dslim/bert-base-NER")
-model = AutoModelForTokenClassification.from_pretrained("dslim/bert-base-NER")
+# tokenizer = AutoTokenizer.from_pretrained("dslim/bert-large-NER")
+# model = AutoModelForTokenClassification.from_pretrained("dslim/bert-large-NER")
 
-nlp = pipeline("ner", model=model, tokenizer=tokenizer)
+# nlp = pipeline("ner", model=model, tokenizer=tokenizer)
+# text = "I DOUBT OUR BEING ABLE TO DO SO MUCH SAID MORLAND YOU CROAKING FELLOW CRIED THORPE WE SHALL BE ABLE TO DO TEN TIMES MORE KINGSWESTON AYE AND BLAIZE CASTLE TOO AND ANYTHING ELSE WE CAN HEAR OF"
+# def NER(text):
+#     ner_results = nlp(text)
+#     return ner_results
+# print(NER(text))
 
+import spacy
+nlp = spacy.load("en_core_web_sm")
 def NER(text):
-    ner_results = nlp(text)
-    return ner_results
-
+    doc = nlp(text)
+    # print(doc.text)
+    return doc
+    # for token in doc:
+    #     return token.text, token.pos_,
+    #     print(token.text, token.pos_, token.dep_)
 
 # @article{DBLP:journals/corr/abs-1810-04805,
 #   author    = {Jacob Devlin and
