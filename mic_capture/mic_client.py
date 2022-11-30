@@ -1,8 +1,6 @@
 import pyaudio
-import wave
 import numpy as np
 import json
-import time
 import os
 def exact_div(x, y):
     assert x % y == 0
