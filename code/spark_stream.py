@@ -54,12 +54,20 @@ def transcribe(df, epochId):
     # ner_results = nlp(result.text)
     ner = NER(result.text)
 
-    for item in ner:
-        if item['entity'] == 'I-PER':
-            if item['word'] in sentence_dictionary:
-                sentence_dictionary[item['word']] += 1
+    for token in ner.ents:
+        if token.label_ == 'PERSON':
+            if token.text in sentence_dictionary:
+                sentence_dictionary[token.text] += 1
             else:
-                sentence_dictionary[item['word']] = 1
+                sentence_dictionary[token.text] = 1
+
+    # for item in ner:
+    #     print(item)
+    #     if item['entity'] == 'B-PER':
+    #         if item['word'] in sentence_dictionary:
+    #             sentence_dictionary[item['word']] += 1
+    #         else:
+    #             sentence_dictionary[item['word']] = 1
     # print the recognized text
     print(f"Lang: {max(probs, key=probs.get)} >>>> ")
     print(f" | {result.text} | ")
