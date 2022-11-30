@@ -4,7 +4,8 @@ import os
 import ffmpeg
 import json
 
-dir_path = r'../audio/'
+# dir_path = r'../audio/'
+dir_path = r'../input/mp3/'
 
 SAMPLE_RATE = 16000
 def load_audio(file: str, sr: int = SAMPLE_RATE):
@@ -41,4 +42,4 @@ for path in os.listdir(dir_path):
     audio = load_audio(dir_path+path)
     path_csv = "../files/" + path + ".json"
     with open(path_csv, 'w') as f:
-        json.dump({'audio': audio.tolist()}, f, ensure_ascii=False)
+        json.dump({'audio': audio.tolist(), 'file': path}, f, ensure_ascii=False)
