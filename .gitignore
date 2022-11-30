@@ -7,8 +7,6 @@ pyspark_env.tar.gz
 pyspark_venv.tar.gz
 audio/*
 files/*
-input/mp3/*
-input/txt/*
 input/txt pro/*
 output_txt/*
 output_txt_first/*
